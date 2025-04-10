@@ -1,107 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hack Gear 1.0</title>
-    <link rel="stylesheet" href="style.css" />
-    <script
-      src="https://kit.fontawesome.com/a9da22d09f.js"
-      crossorigin="anonymous"
-    ></script>
-  </head>
-  <body>
-    <section id="main-section home">
-      <nav class="flex-se">
-        <h1 id="logo" class="capital pointer">hack gear 1.0</h1>
-        <ul id="nav-ul" class="flex-se">
-          <a href="#home" class="none">
-            <li class="nav-li pointer capital none">home</li>
-          </a>
-          <a href="#about" class="none">
-            <li class="nav-li pointer capital">about</li>
-          </a>
-          <a href="" class="none">
-            <li class="nav-li pointer capital">domains</li>
-          </a>
-          <a href="" class="none">
-            <li class="nav-li pointer capital">timeline</li>
-          </a>
-          <a href="" class="none">
-            <li class="nav-li pointer capital">FAQ</li>
-          </a>
-          <a href="" class="none">
-            <li class="nav-li pointer capital">contact</li>
-          </a>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Hack Gear 1.0 - Aligarh's first tech battleground" />
+  <title>Hack Gear 1.0</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://kit.fontawesome.com/a9da22d09f.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-md navbar-light bg-white py-2 py-md-3">
+    <div class="container">
+      <h1 id="logo" class="navbar-brand mb-0 pointer">hack gear 1.0</h1>
+
+      <!-- Toggler Button -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+        aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Navbar Content -->
+      <div class="collapse navbar-collapse" id="mainNavbar">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a href="#home" class="nav-link nav-li px-2 px-md-3">home</a>
+          </li>
+          <li class="nav-item">
+            <a href="#about" class="nav-link nav-li px-2 px-md-3">about</a>
+          </li>
+          <li class="nav-item">
+            <a href="#domains" class="nav-link nav-li px-2 px-md-3">domains</a>
+          </li>
+          <li class="nav-item">
+            <a href="#timeline" class="nav-link nav-li px-2 px-md-3">timeline</a>
+          </li>
+          <li class="nav-item">
+            <a href="#faq" class="nav-link nav-li px-2 px-md-3">FAQ</a>
+          </li>
+          <li class="nav-item">
+            <a href="#contact" class="nav-link nav-li px-2 px-md-3">contact</a>
+          </li>
         </ul>
-      </nav>
-      <hr />
-      <header id="hero-section">
-        <div class="flex-se fdc">
-          <h2 id="hero-h2">Presenting</h2>
-          <div id="main-presentation" class="flex-se">
-            <img src="assets/square.png" alt="" class="square-img" />
-            <h3 class="capital pointer" id="hero-h3">hack gear 1.0</h3>
-            <img src="assets/square.png" alt="" class="square-img" />
-          </div>
-          <button id="register-btn" class="pointer capital">register</button>
+      </div>
+    </div>
+  </nav>
+  <hr class="my-0">
+
+  <!-- Hero Section -->
+  <header id="hero-section">
+    <div class="container hero-content">
+      <h2 id="hero-h2">Presenting</h2>
+      <div id="main-presentation">
+        <img src="assets/square.png" alt="" class="square-img">
+        <h3 id="hero-h3">hack gear 1.0</h3>
+        <img src="assets/square.png" alt="" class="square-img">
+      </div>
+      <button id="register-btn">register</button>
+      <div class="countdown-container">
+        <h2 id="count-h2">Time left for registration</h2>
+      </div>
+    </div>
+  </header>
+
+  <hr class="my-0">
+
+  <!-- About Section -->
+  <section id="about" class="py-5 position-relative">
+    <div class="container position-relative z-index-1">
+      <h2 id="about-h2" class="text-center my-4">why hack gear 1.0?</h2>
+      <div class="row align-items-center">
+        <div class="col-lg-5 mb-4 mb-lg-0 text-center">
+          <img src="assets/robo-img.png" alt="" class="img-fluid robo-img">
         </div>
-        <div class="flex-se">
-          <div class="count-main-div">
-            <h2 id="count-h2">Time left for registration</h2>
+        <div class="col-lg-7">
+          <div class="about-content bg-dark p-4 rounded">
+            <p class="about-p">
+              Hack Gear 1.0 isn't just a hackathon — <br>
+              It's Aligarh's first tech battleground, where developers, designers,
+              and problem-solvers come together to turn groundbreaking ideas into
+              real-world tech solutions. From AI to Blockchain, from cybersecurity
+              to web development — this is where innovation meets execution.
+              Whether you're a seasoned coder or a first-time hacker, Hack Gear
+              1.0 gives you the platform to collaborate, create, and compete with
+              the best minds in the region.
+            </p>
+            <h2 class="abouth22">🔹Why Join?</h2>
+            <ul class="about-ul">
+              <li>
+                <b>💡 Challenge Yourself –</b> Tackle real-world problem statements
+              </li>
+              <li><b>⚙ Hybrid Format –</b> Ideate online, build offline</li>
+              <li>
+                <b>🧠 Mentorship Access – </b>Learn from tech leaders & industry experts
+              </li>
+              <li>
+                <b>🏆 Recognition & Rewards –</b> Prizes, swags, internship opportunities
+              </li>
+              <li>
+                <b>🌐 Tech Themes –</b> AI, Web Dev, Blockchain, Cybersecurity & more
+              </li>
+            </ul>
           </div>
-        </div>
-      </header>
-    </section>
-    <hr />
-    <section id="about">
-      <div id="about-h2" class="capital">why hack gear 1.0?</div>
-      <div class="flex-se">
-        <img src="assets/robo-img.png" alt="" class="robo-img" />
-        <div class="about-div">
-          <p class="about-p">
-            Hack Gear 1.0 isn’t just a hackathon — <br />
-            It’s Aligarh’s first tech battleground, where developers, designers,
-            and problem-solvers come together to turn groundbreaking ideas into
-            real-world tech solutions. From AI to Blockchain, from cybersecurity
-            to web development — this is where innovation meets execution.
-            Whether you're a seasoned coder or a first-time hacker, Hack Gear
-            1.0 gives you the platform to collaborate, create, and compete with
-            the best minds in the region.
-          </p>
-          <h2 class="abouth22">🔹Why Join?</h2>
-          <ul class="about-ul">
-            <li>
-              <b>💡 Challenge Yourself –</b> Tackle real-world problem
-              statements
-            </li>
-            <li><b>⚙ Hybrid Format –</b> Ideate online, build offline</li>
-            <li>
-              <b>🧠 Mentorship Access – </b>Learn from tech leaders & industry
-              experts
-            </li>
-            <li>
-              <b>🏆 Recognition & Rewards –</b> Prizes, swags, internship
-              opportunities
-            </li>
-            <li>
-              <b>🌐 Tech Themes –</b> AI, Web Dev, Blockchain, Cybersecurity &
-              more
-            </li>
-          </ul>
         </div>
       </div>
-    </section>
-    <hr />
-    <section id="domains">
-      <h2 id="domain-h2" class="capital">hackathon domains!!</h2>
-      <div class="domain-card-main flex-se">
-        <div class="flex-se">
-          <!-- web dev card -->
-          <div class="domain-card flex-se pointer">
-            <img src="assets/webdev.jpg" alt="" class="domain-card-img" />
-            <div class="flex-sb card-div-2">
-              <h2 class="card-h2 capital">web dev</h2>
+    </div>
+    <!-- Optional overlay if background is too light -->
+    <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50 z-index-0"></div>
+  </section>
+
+  <hr class="my-0">
+
+  <!-- Domains Section -->
+  <section id="domains" class="py-5">
+    <div class="container">
+      <h2 id="domain-h2" class="text-center my-4">hackathon domains!!</h2>
+
+      <div class="row justify-content-center g-4">
+        <!-- Web Dev Card -->
+        <div class="col-md-6">
+          <div class="domain-card d-flex pointer">
+            <img src="assets/webdev.jpg" alt="" class="domain-card-img">
+            <div class="card-div-2 d-flex flex-column">
+              <h2 class="card-h2">web dev</h2>
               <p class="card-p">
                 Pixels to platforms, we shape what the world sees. From backend
                 logic to sleek front-end flair, Web developers are the
@@ -110,11 +135,14 @@
               </p>
             </div>
           </div>
-          <!-- ai card -->
-          <div class="domain-card flex-se pointer">
-            <img src="assets/ai.jpg" alt="" class="domain-card-img" />
-            <div class="flex-sb card-div-2">
-              <h2 class="card-h2 capital">AI & ML</h2>
+        </div>
+
+        <!-- AI Card -->
+        <div class="col-md-6">
+          <div class="domain-card d-flex pointer">
+            <img src="assets/ai.jpg" alt="" class="domain-card-img">
+            <div class="card-div-2 d-flex flex-column">
+              <h2 class="card-h2">AI & ML</h2>
               <p class="card-p">
                 Machines that learn, adapt, and evolve, Turning data into
                 decisions with speed and precision. From voice assistants to
@@ -124,11 +152,13 @@
             </div>
           </div>
         </div>
-        <div class="flex-se">
-          <div class="domain-card flex-se pointer">
-            <img src="assets/blockchain.jpg" alt="" class="domain-card-img" />
-            <div class="flex-sb card-div-2">
-              <h2 class="card-h2 capital">blockchain</h2>
+
+        <!-- Blockchain Card -->
+        <div class="col-md-6">
+          <div class="domain-card d-flex pointer">
+            <img src="assets/blockchain.jpg" alt="" class="domain-card-img">
+            <div class="card-div-2 d-flex flex-column">
+              <h2 class="card-h2">blockchain</h2>
               <p class="card-p">
                 A chain of blocks, a revolution of trust. No middlemen, no lies
                 — just verified truth. From finance to identity, it's
@@ -137,158 +167,219 @@
               </p>
             </div>
           </div>
-          <div class="domain-card flex-se pointer">
-            <img
-              src="assets/cybersecurity.jpg"
-              alt=""
-              class="domain-card-img"
-            />
-            <div class="flex-sb card-div-2">
-              <h2 class="card-h2 capital">cyber security</h2>
+        </div>
+
+        <!-- Cyber Security Card -->
+        <div class="col-md-6">
+          <div class="domain-card d-flex pointer">
+            <img src="assets/cybersecurity.jpg" alt="" class="domain-card-img">
+            <div class="card-div-2 d-flex flex-column">
+              <h2 class="card-h2">cyber security</h2>
               <p class="card-p">
                 Guardians of the digital universe. Fighting threats in silence,
                 byte by byte. Firewalls, encryption, and ethical vigilance.
                 Every click, every code — a battle for safety. Hack the threat.
-                Defend the code. Own the shield.
+                Defend the code. Own the shield.
               </p>
             </div>
           </div>
         </div>
       </div>
-      <div class="flex">
-        <div class="problem capital">view problem statements</div>
+
+      <div class="text-center mt-5">
+        <div class="problem d-inline-block">view problem statements</div>
       </div>
-    </section>
-    <hr />
-    <section id="timeline"></section>
-    <hr />
-    <section id="rewards">
-      <h2 id="rewards-h2" class="capital">what will you get?</h2>
-      <div class="flex-se" style="margin-top: 15vh">
-        <div class="reward-card">
-          <h2 class="rewards-inner-h2 capital">recognition</h2>
-          <p class="rewards-p">
-            🤝 Connect with fellow innovators, mentors, and industry experts
-            throughout the event. 💬 Get a chance to collaborate with
-            like-minded tech enthusiasts from different colleges. 🎙 Interact
-            with judges, speakers, and sponsors during the sessions and breaks.
-            🌐 Build your professional network for future internships, jobs, and
-            collaborations. 📲 Stay in touch post-event through community groups
-            and online platforms.
-          </p>
-        </div>
-        <div class="reward-card">
-          <h2 class="rewards-inner-h2 capital">certification</h2>
-          <p class="rewards-p">
-            📜 Every participant will receive a Certificate of Participation
-            from Vision Institute of Technology, Aligarh. 🏆 Winners and
-            runner-ups will be awarded Certificates of Excellence along with
-            prizes. 🔖 Theme-wise best projects will get Special Recognition
-            Certificates to highlight their innovation. 💼 These certificates
-            can be a great addition to your portfolio and boost your resume for
-            future opportunities.
-          </p>
-        </div>
-        <div class="reward-card">
-          <h2 class="rewards-inner-h2 capital">networking</h2>
-          <p class="rewards-p">
-            🏅 All participants will receive official certificates of
-            recognition from Vision Institute of Technology, Aligarh. 🥇 Top
-            teams will be honored with certificates of excellence and exclusive
-            accolades in their respective themes. 🚀 Outstanding innovations may
-            be highlighted in post-event blogs, college showcases, and partner
-            platforms. 📢 Teams will get a chance to present live in front of
-            judges and industry mentors during the finale.
-          </p>
-        </div>
-      </div>
-    </section>
-    <hr />
-    <section id="members">
-      <h2 id="members-h2" class="capital">meet the team</h2>
-      <div class="flex-se" style="margin-top: 5vh">
-        <div class="member-card flex-se pointer">
-          <img src="assets/gurav-img.jpg" alt="" class="member-card-img" />
-          <div class="member-card-div">
-            <h2 class="member-card-h2 capital">gaurav lodhi</h2>
-            <p class="member-card-p capital">head organizer</p>
+    </div>
+  </section>
+
+  <hr class="my-0">
+
+  <!-- Timeline Section -->
+  <section id="timeline" class="py-5">
+    <div class="container">
+      <!-- Timeline content will go here -->
+    </div>
+  </section>
+
+  <hr class="my-0">
+
+  <!-- Rewards Section -->
+  <section id="rewards" class="py-5">
+    <div class="container">
+      <h2 id="rewards-h2" class="text-center my-4">what will you get?</h2>
+
+      <div class="row g-4 mt-5">
+        <div class="col-md-4">
+          <div class="reward-card h-100">
+            <h2 class="rewards-inner-h2">recognition</h2>
+            <p class="rewards-p">
+              🤝 Connect with fellow innovators, mentors, and industry experts
+              throughout the event. 💬 Get a chance to collaborate with
+              like-minded tech enthusiasts from different colleges. 🎙 Interact
+              with judges, speakers, and sponsors during the sessions and breaks.
+              🌐 Build your professional network for future internships, jobs, and
+              collaborations. 📲 Stay in touch post-event through community groups
+              and online platforms.
+            </p>
           </div>
         </div>
-        <div class="member-card flex-se pointer">
-          <img src="assets/my-img.jpg" alt="" class="member-card-img" />
-          <div class="member-card-div">
-            <h2 class="member-card-h2 capital">hritik sharma</h2>
-            <p class="member-card-p capital">lead organizer</p>
+
+        <div class="col-md-4">
+          <div class="reward-card h-100">
+            <h2 class="rewards-inner-h2">certification</h2>
+            <p class="rewards-p">
+              📜 Every participant will receive a Certificate of Participation
+              from Vision Institute of Technology, Aligarh. 🏆 Winners and
+              runner-ups will be awarded Certificates of Excellence along with
+              prizes. 🔖 Theme-wise best projects will get Special Recognition
+              Certificates to highlight their innovation. 💼 These certificates
+              can be a great addition to your portfolio and boost your resume for
+              future opportunities.
+            </p>
           </div>
         </div>
-        <div class="member-card flex-se pointer">
-          <img src="assets/shivam.jpg" alt="" class="member-card-img" />
-          <div class="member-card-div">
-            <h2 class="member-card-h2 capital">shivam pratap singh</h2>
-            <p class="member-card-p capital">operation team head</p>
+
+        <div class="col-md-4">
+          <div class="reward-card h-100">
+            <h2 class="rewards-inner-h2">networking</h2>
+            <p class="rewards-p">
+              🏅 All participants will receive official certificates of
+              recognition from Vision Institute of Technology, Aligarh. 🥇 Top
+              teams will be honored with certificates of excellence and exclusive
+              accolades in their respective themes. 🚀 Outstanding innovations may
+              be highlighted in post-event blogs, college showcases, and partner
+              platforms. 📢 Teams will get a chance to present live in front of
+              judges and industry mentors during the finale.
+            </p>
           </div>
         </div>
       </div>
-      <div class="flex-se" style="margin-top: 5vh">
-        <div class="member-card flex-se pointer">
-          <img src="assets/harsh.jpg" alt="" class="member-card-img" />
-          <div class="member-card-div">
-            <h2 class="member-card-h2 capital">harsh vardhan</h2>
-            <p class="member-card-p capital">technical team head</p>
+    </div>
+  </section>
+
+  <hr class="my-0">
+
+  <!-- Members Section -->
+  <section id="members" class="py-5">
+    <div class="container">
+      <h2 id="members-h2" class="text-center my-4">meet the team</h2>
+
+      <div class="row g-4 justify-content-center mt-4">
+        <!-- Team Member 1 -->
+        <div class="col-md-4 col-sm-6">
+          <div class="member-card d-flex pointer">
+            <img src="assets/gurav-img.jpg" alt="" class="member-card-img">
+            <div class="member-card-div">
+              <h2 class="member-card-h2">Gaurav Lodhi</h2>
+              <p class="member-card-p">Head Organizer</p>
+            </div>
           </div>
         </div>
-        <div class="member-card flex-se pointer">
-          <img src="assets/vinit.jpg" alt="" class="member-card-img" />
-          <div class="member-card-div">
-            <h2 class="member-card-h2 capital">vinit sharma</h2>
-            <p class="member-card-p capital">marketing team head</p>
+
+        <!-- Team Member 2 -->
+        <div class="col-md-4 col-sm-6">
+          <div class="member-card d-flex pointer">
+            <img src="assets/my-img.jpg" alt="" class="member-card-img">
+            <div class="member-card-div">
+              <h2 class="member-card-h2">Hritik Sharma</h2>
+              <p class="member-card-p">Lead Organizer</p>
+            </div>
           </div>
         </div>
-        <div class="member-card flex-se pointer">
-          <img src="assets/abhishek.jpg" alt="" class="member-card-img" />
-          <div class="member-card-div">
-            <h2 class="member-card-h2 capital">abhishek sharma</h2>
-            <p class="member-card-p capital">designing team head</p>
+
+        <!-- Team Member 3 -->
+        <div class="col-md-4 col-sm-6">
+          <div class="member-card d-flex pointer">
+            <img src="assets/shivam.jpg" alt="" class="member-card-img">
+            <div class="member-card-div">
+              <h2 class="member-card-h2">Shivam Pratap Singh</h2>
+              <p class="member-card-p">Operation Team Head</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Team Member 4 -->
+        <div class="col-md-4 col-sm-6">
+          <div class="member-card d-flex pointer">
+            <img src="assets/harsh.jpg" alt="" class="member-card-img">
+            <div class="member-card-div">
+              <h2 class="member-card-h2">Harsh Vardhan</h2>
+              <p class="member-card-p">Technical Team Head</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Team Member 5 -->
+        <div class="col-md-4 col-sm-6">
+          <div class="member-card d-flex pointer">
+            <img src="assets/vinit.jpg" alt="" class="member-card-img">
+            <div class="member-card-div">
+              <h2 class="member-card-h2">Vinit Sharma</h2>
+              <p class="member-card-p">Marketing Team Head</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Team Member 6 -->
+        <div class="col-md-4 col-sm-6">
+          <div class="member-card d-flex pointer">
+            <img src="assets/abhishek.jpg" alt="" class="member-card-img">
+            <div class="member-card-div">
+              <h2 class="member-card-h2">Abhishek Sharma</h2>
+              <p class="member-card-p">Designing Team Head</p>
+            </div>
           </div>
         </div>
       </div>
-    </section>
-    <footer id="contact" class="flex-se">
-      <div class="flex-se footer-div-min">
-        <div class="footer-div">
-          <h2 id="footer-h2" class="capital">
-            <i class="fa-solid fa-location-dot"></i> address
-          </h2>
-          <p class="footer-p">
-            Vision Institute of Technology,<br />
-            Aligarh, Uttar Pradesh
-          </p>
-          <p class="quote">
-            “ It’s not just about writing code, it's about the experience "
-          </p>
+    </div>
+  </section>
+
+  <hr class="my-0">
+
+  <!-- Footer Section -->
+  <footer id="contact" class="py-5">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 mb-4 mb-lg-0">
+          <div class="footer-div">
+            <h2 id="footer-h2">
+              <i class="fa-solid fa-location-dot"></i> address
+            </h2>
+            <p class="footer-p">
+              Vision Institute of Technology,<br>
+              Aligarh, Uttar Pradesh
+            </p>
+            <p class="quote">
+              "It's not just about writing code, it's about the experience"
+            </p>
+          </div>
         </div>
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1807477.460673855!2d75.64336995624998!3d27.771904500000012!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x397498722789f7f1%3A0xdca5f1457d6dfd3e!2sVision%20Institute%20of%20Technology!5e0!3m2!1sen!2sin!4v1744269838588!5m2!1sen!2sin"
-          width="600"
-          height="450"
-          style="border: 0"
-          allowfullscreen=""
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-        ></iframe>
+        <div class="col-lg-6">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1807477.460673855!2d75.64336995624998!3d27.771904500000012!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x397498722789f7f1%3A0xdca5f1457d6dfd3e!2sVision%20Institute%20of%20Technology!5e0!3m2!1sen!2sin!4v1744269838588!5m2!1sen!2sin"
+            class="w-100" height="300" style="border:0; border-radius: 10px;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
       </div>
 
-      <div class="footer-part-2">
-        <div class="social-icons flex-se">
-          <i class="fa-brands fa-linkedin-in pointer" title="linkedin"></i>
-          <i class="fa-brands fa-instagram pointer" title="instagram"></i>
-          <i class="fa-brands fa-discord pointer" title="discord"></i>
+      <div class="footer-part-2 text-center mt-5">
+        <div class="social-icons d-flex justify-content-center mb-3">
+          <i class="fa-brands fa-linkedin-in pointer mx-3" title="linkedin"></i>
+          <i class="fa-brands fa-instagram pointer mx-3" title="instagram"></i>
+          <i class="fa-brands fa-discord pointer mx-3" title="discord"></i>
         </div>
         <div class="copyright">
-          &copy 2025 Hack Gear 1.0. All rights reserved.
+          &copy; 2025 Hack Gear 1.0. All rights reserved.
         </div>
       </div>
-    </footer>
-  </body>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="script.js"></script>
+  <!-- Before closing </body> tag -->
+</body>
+
 </html>
