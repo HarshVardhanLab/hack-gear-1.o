@@ -482,6 +482,21 @@ hr {
     color: var(--green-col);
 }
 
+/* Add border box and border to LinkedIn icon */
+.member-card-div a i {
+  display: inline-block;
+  border: 2px solid #0077b5; /* LinkedIn blue color */
+  border-radius: 50%; /* Circular border */
+  padding: 10px; /* Space inside the border */
+  color: #0077b5; /* LinkedIn blue color */
+  transition: all 0.3s ease; /* Smooth hover effect */
+}
+
+.member-card-div a i:hover {
+  background-color: #0077b5; /* Fill background on hover */
+  color: #fff; /* Change icon color to white on hover */
+}
+
 /* Footer Section */
 footer {
     background-color: #1a1a1a;
