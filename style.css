@@ -497,6 +497,86 @@ hr {
   color: #fff; /* Change icon color to white on hover */
 }
 
+/* FAQ Section */
+#faq {
+    background-color: #0a0a0a;
+    border-top: 2px solid var(--green-col);
+}
+
+.section-title {
+    color: var(--green-col);
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.faq-card {
+    background-color: #111;
+    border: 1px solid #222;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+}
+
+.faq-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(207, 255, 12, 0.1);
+}
+
+.question {
+    padding: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #181818;
+}
+
+.question h3 {
+    color: var(--green-col);
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.question i {
+    color: #666;
+    transition: transform 0.3s ease;
+}
+
+.question[aria-expanded="true"] i {
+    transform: rotate(180deg);
+}
+
+.answer {
+    padding: 1.5rem;
+    color: #aaa;
+    background-color: #151515;
+    border-top: 1px solid #222;
+}
+
+.still-questions {
+    text-align: center;
+    padding: 2rem;
+    background-color: #111;
+    border-radius: 8px;
+    margin-top: 3rem;
+}
+
+.still-questions h3 {
+    color: var(--green-col);
+    margin-bottom: 1rem;
+}
+
+.contact-cta a {
+    color: var(--blue-col);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.contact-cta a:hover {
+    text-decoration: underline;
+}
+
 /* Footer Section */
 footer {
     background-color: #1a1a1a;
