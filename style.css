@@ -576,6 +576,35 @@ hr {
 .contact-cta a:hover {
     text-decoration: underline;
 }
+/* Improved Collapse Animation */
+.collapse {
+    transition: all 0.3s ease-out;
+}
+
+.collapsing {
+    transition: height 0.3s ease-out;
+}
+
+/* Better Active State Indication */
+.question[aria-expanded="true"] {
+    background-color: #1a1a1a;
+}
+
+.question[aria-expanded="true"] h3 {
+    color: #d3ff5e;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .question h3 {
+        font-size: 1rem;
+        line-height: 1.4;
+    }
+    
+    .answer {
+        padding: 1rem;
+    }
+}
 
 /* Footer Section */
 footer {
