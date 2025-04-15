@@ -398,6 +398,17 @@ hr {
     box-shadow: 5px 5px 0px #000;
     transform: rotate(-7deg);
 }
+#rewards-h4 {
+    background-color: #b3ff50;
+    display: inline-block;
+    padding: 1rem 2rem;
+    color: #000000;
+    font-size: 2rem;
+    font-weight: 500;
+    border: 3px solid #000;
+    box-shadow: 5px 5px 0px #000;
+    transform: rotate(-7deg);
+}
 
 .reward-card {
     height: 100%;
@@ -430,6 +441,129 @@ hr {
     line-height: 1.6;
 }
 
+.ppt-submit-btn {
+    display: inline-block;
+    background-color: var(--blue-col);
+    color: #000 !important;
+    padding: 0.8rem 2rem;
+    border: 3px solid #000;
+    box-shadow: 8px 8px 0px #000;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-top: 1rem;
+    transition: all 0.3s ease;
+    text-decoration: none !important;
+}
+
+.ppt-submit-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 10px 10px 0px #000;
+    color: #000;
+}
+/* Timeline Section */
+#timeline {
+    background-image: url("assets/bg/4.jpg");
+    border-top: 2px solid var(--blue-col);
+}
+
+.timeline-wrapper {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 0;
+}
+
+.timeline-line {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background-color: var(--green-col);
+    transform: translateX(-50%);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 40px;
+    width: 100%;
+}
+
+.timeline-item:nth-child(odd) .timeline-content {
+    margin-left: 55%;
+    text-align: left;
+}
+
+.timeline-item:nth-child(even) .timeline-content {
+    margin-right: 55%;
+    text-align: right;
+}
+
+.timeline-content {
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.7);
+    box-shadow: 0 0 20px #000;
+    border: 1px solid #222;
+    border-radius: 8px;
+    padding: 25px;
+    width: 45%;
+    transition: all 0.3s ease;
+}
+
+.timeline-content::before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: var(--green-col);
+    border: 3px solid #000;
+    border-radius: 50%;
+    top: 30px;
+}
+
+.timeline-item:nth-child(odd) .timeline-content::before {
+    left: -35px;
+}
+
+.timeline-item:nth-child(even) .timeline-content::before {
+    right: -35px;
+}
+
+.timeline-heading {
+    color: var(--green-col);
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.timeline-date {
+    color: var(--blue-col);
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.timeline-desc {
+    color: #ffffff;
+    line-height: 1.6;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .timeline-line {
+        left: 20px;
+    }
+    
+    .timeline-content {
+        width: 80%;
+        margin-left: 60px !important;
+        text-align: left !important;
+    }
+    
+    .timeline-content::before {
+        left: -35px !important;
+        right: auto !important;
+    }
+}
 /* Members Section */
 #members {
     background-image: url("assets/bg/4.jpg");
