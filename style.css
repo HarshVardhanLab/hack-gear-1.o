@@ -740,6 +740,36 @@ hr {
     }
 }
 
+#sponsors {
+    background-color: #0a0a0a;
+    border-top: 2px solid var(--purple-col);
+  }
+  
+  .sponsor-logo {
+    display: block;
+    padding: 1.5rem;
+    background: #111;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    border: 1px solid #222;
+  }
+  
+  .sponsor-logo:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(207, 255, 12, 0.1);
+  }
+  
+  .sponsor-logo img {
+    filter: grayscale(100%);
+    opacity: 0.8;
+    transition: all 0.3s ease;
+  }
+  
+  .sponsor-logo:hover img {
+    filter: grayscale(0%);
+    opacity: 1;
+  }
+
 /* Footer Section */
 footer {
     background-color: #1a1a1a;
