@@ -186,11 +186,11 @@ hr {
   
   .countdown-container {
     background-color: rgba(255, 255, 255, 0.9);
-    padding: 5.5rem;
+    padding: 5rem;
     border-radius: 10px;
     box-shadow: 0 0 30px rgba(0,0,0,0.3);
     max-width: 500px;
-    margin: 3rem auto 0;
+    margin: 18px auto 0;
   }
   
   #count-h2 {
