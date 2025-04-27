@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Attendance System</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Animate.css for animations -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- jsQR library -->
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+        }
+        
+        .scanner-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .scanner-container:hover {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        #scanner {
+            width: 100%;
+            display: block;
+        }
+        
+        .scanner-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, 0) 80%, rgba(0, 0, 0, 0.2) 100%);
+            pointer-events: none;
+        }
+        
+        .scanner-frame {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70%;
+            height: 70%;
+            border: 3px solid rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.5);
+            pointer-events: none;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { border-color: rgba(255, 255, 255, 0.8); }
+            50% { border-color: rgba(76, 175, 80, 0.8); }
+            100% { border-color: rgba(255, 255, 255, 0.8); }
+        }
+        
+        #result {
+            margin: 20px auto;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.3s ease;
+            opacity: 0;
+            height: 0;
+            overflow: hidden;
+        }
+        
+        #result.show {
+            opacity: 1;
+            height: auto;
+            padding: 15px;
+            margin: 20px auto;
+        }
+        
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border-left: 5px solid #28a745;
+        }
+        
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border-left: 5px solid #dc3545;
+        }
+        
+        .warning {
+            background-color: #fff3cd;
+            color: #856404;
+            border-left: 5px solid #ffc107;
+        }
+        
+        .attendance-card {
+            transition: all 0.3s ease;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .attendance-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .table-responsive {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .table thead th {
+            background-color: #4CAF50;
+            color: white;
+            border-bottom: none;
+        }
+        
+        .table tbody tr {
+            transition: all 0.2s ease;
+        }
+        
+        .table tbody tr:hover {
+            background-color: rgba(76, 175, 80, 0.05);
+        }
+        
+        .badge-success {
+            background-color: #28a745;
+        }
+        
+        .btn-download {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            transition: all 0.3s ease;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+        
+        .btn-download:hover {
+            background-color: #3d8b40;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-download:active {
+            transform: translateY(0);
+        }
+        
+        .manual-entry-form {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+        
+        .floating-alert {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            opacity: 0;
+            transition: all 0.3s ease;
+            transform: translateX(100%);
+        }
+        
+        .floating-alert.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        @media (max-width: 768px) {
+            .scanner-frame {
+                width: 80%;
+                height: 80%;
+            }
+            
+            .table-responsive {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container py-4">
+        <!-- Floating Alert -->
+        <div id="floatingAlert" class="floating-alert alert alert-dismissible fade" role="alert">
+            <span id="alertMessage"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        
+        <div class="row mb-4">
+            <div class="col-12 text-center">
+                <h1 class="display-4 fw-bold text-success mb-3 animate__animated animate__fadeInDown">
+                    <i class="fas fa-qrcode me-2"></i>QR Attendance System
+                </h1>
+                <p class="lead text-muted animate__animated animate__fadeIn animate__delay-1s">
+                    Scan participant QR codes to record attendance
+                </p>
+            </div>
+        </div>
+        
+        <div class="row mb-4">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <div class="card attendance-card animate__animated animate__fadeInLeft">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0"><i class="fas fa-camera me-2"></i>QR Code Scanner</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="scanner-container">
+                            <video id="scanner" playsinline></video>
+                            <div class="scanner-overlay"></div>
+                            <div class="scanner-frame"></div>
+                        </div>
+                        <div id="result" class="mt-3"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6">
+                <div class="card attendance-card animate__animated animate__fadeInRight">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0"><i class="fas fa-keyboard me-2"></i>Manual Entry</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="manualEntryForm" class="manual-entry-form">
+                            <div class="mb-3">
+                                <label for="ticketId" class="form-label">Ticket ID</label>
+                                <input type="text" class="form-control" id="ticketId" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="participantName" class="form-label">Participant Name</label>
+                                <input type="text" class="form-control" id="participantName" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="teamName" class="form-label">Team Name</label>
+                                <input type="text" class="form-control" id="teamName" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="teamCode" class="form-label">Team Code</label>
+                                <input type="text" class="form-control" id="teamCode" required>
+                            </div>
+                            <button type="submit" class="btn btn-success w-100">
+                                <i class="fas fa-user-plus me-2"></i>Add Manually
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card attendance-card animate__animated animate__fadeInUp animate__delay-1s">
+                    <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0"><i class="fas fa-list-check me-2"></i>Attendance Records</h5>
+                        <div>
+                            <span class="badge bg-white text-success fs-6">
+                                <span id="recordCount">0</span> records
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Timestamp</th>
+                                        <th>Participant</th>
+                                        <th>Team</th>
+                                        <th>Ticket ID</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="attendanceBody">
+                                    <!-- Records will appear here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-footer text-end">
+                        <button id="downloadBtn" class="btn-download">
+                            <i class="fas fa-file-csv me-2"></i>Download CSV
+                        </button>
+                        <button id="clearBtn" class="btn btn-outline-danger ms-2">
+                            <i class="fas fa-trash me-2"></i>Clear All
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const video = document.getElementById("scanner");
+        const resultDiv = document.getElementById("result");
+        const attendanceBody = document.getElementById("attendanceBody");
+        const downloadBtn = document.getElementById("downloadBtn");
+        const clearBtn = document.getElementById("clearBtn");
+        const manualEntryForm = document.getElementById("manualEntryForm");
+        const floatingAlert = document.getElementById("floatingAlert");
+        const alertMessage = document.getElementById("alertMessage");
+        const recordCount = document.getElementById("recordCount");
+
+        let attendanceRecords = JSON.parse(localStorage.getItem("attendanceRecords")) || [];
+
+        updateAttendanceTable();
+
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+            showResult("Camera access is not supported by your browser", "error");
+        }
+
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+            .then(function(stream) {
+                video.srcObject = stream;
+                video.play();
+                requestAnimationFrame(scanQR);
+            })
+            .catch(function(err) {
+                showResult("Error accessing camera: " + err.message, "error");
+            });
+
+        function scanQR() {
+            if (video.readyState === video.HAVE_ENOUGH_DATA) {
+                const canvas = document.createElement("canvas");
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                const context = canvas.getContext("2d");
+                context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+                const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+                const code = jsQR(imageData.data, imageData.width, imageData.height);
+
+                if (code) {
+                    try {
+                        const data = JSON.parse(code.data);
+
+                        if (validateQRData(data)) {
+                            const existingRecord = attendanceRecords.find(
+                                record => record.ticket_id === data.ticket_id
+                            );
+
+                            if (!existingRecord) {
+                                if (!data.timestamp) {
+                                    data.timestamp = new Date().toISOString();
+                                }
+
+                                attendanceRecords.unshift(data);
+                                saveRecords();
+
+                                showResult(`Attendance recorded for ${data.participant}`, "success");
+                                showFloatingAlert(`Success: ${data.participant} added`, "success");
+                            } else {
+                                showResult(`Ticket ${data.ticket_id} already scanned`, "warning");
+                                showFloatingAlert(`Warning: ${data.participant} already scanned`, "warning");
+                            }
+                        } else {
+                            showResult("Invalid QR code format", "error");
+                            showFloatingAlert("Error: Invalid QR code format", "danger");
+                        }
+                    } catch (e) {
+                        showResult("Invalid QR code data", "error");
+                        showFloatingAlert("Error: Invalid QR code", "danger");
+                    }
+                }
+            }
+            requestAnimationFrame(scanQR);
+        }
+
+        manualEntryForm.addEventListener("submit", function(e) {
+            e.preventDefault();
+            const data = {
+                timestamp: new Date().toISOString(),
+                participant: participantName.value.trim(),
+                team: teamName.value.trim(),
+                team_code: teamCode.value.trim(),
+                ticket_id: ticketId.value.trim()
+            };
+
+            if (validateQRData(data)) {
+                attendanceRecords.unshift(data);
+                saveRecords();
+                showResult(`Manually added ${data.participant}`, "success");
+                showFloatingAlert(`Manually added ${data.participant}`, "success");
+                manualEntryForm.reset();
+            } else {
+                showResult("Please fill all fields correctly", "error");
+            }
+        });
+
+        downloadBtn.addEventListener("click", function() {
+            if (attendanceRecords.length === 0) {
+                showFloatingAlert("No records to download", "warning");
+                return;
+            }
+
+            let csv = "Timestamp,Participant,Team,Team Code,Ticket ID\n";
+            attendanceRecords.forEach(record => {
+                csv += `${record.timestamp},${record.participant},${record.team},${record.team_code},${record.ticket_id}\n`;
+            });
+
+            const blob = new Blob([csv], { type: "text/csv" });
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "attendance_records.csv";
+            a.click();
+
+            URL.revokeObjectURL(url);
+        });
+
+        clearBtn.addEventListener("click", function() {
+            if (confirm("Are you sure you want to clear all attendance records?")) {
+                attendanceRecords = [];
+                saveRecords();
+                showFloatingAlert("All records cleared", "danger");
+            }
+        });
+
+        function validateQRData(data) {
+            return data.participant && data.team && data.team_code && data.ticket_id;
+        }
+
+        function saveRecords() {
+            localStorage.setItem("attendanceRecords", JSON.stringify(attendanceRecords));
+            updateAttendanceTable();
+        }
+
+        function updateAttendanceTable() {
+            attendanceBody.innerHTML = "";
+            attendanceRecords.forEach(record => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td>${new Date(record.timestamp).toLocaleString()}</td>
+                    <td>${record.participant}</td>
+                    <td>${record.team}</td>
+                    <td>${record.ticket_id}</td>
+                    <td><span class="badge badge-success">Present</span></td>
+                    <td><button class="btn btn-sm btn-danger" onclick="deleteRecord('${record.ticket_id}')"><i class="fas fa-trash"></i></button></td>
+                `;
+                attendanceBody.appendChild(tr);
+            });
+
+            recordCount.textContent = attendanceRecords.length;
+        }
+
+        function deleteRecord(ticketId) {
+            attendanceRecords = attendanceRecords.filter(record => record.ticket_id !== ticketId);
+            saveRecords();
+            showFloatingAlert(`Record ${ticketId} deleted`, "danger");
+        }
+
+        function showResult(message, type) {
+            resultDiv.className = "";
+            resultDiv.classList.add(type, "show");
+            resultDiv.innerText = message;
+            setTimeout(() => {
+                resultDiv.classList.remove("show");
+            }, 3000);
+        }
+
+        function showFloatingAlert(message, type) {
+            floatingAlert.className = `floating-alert alert alert-${type} show`;
+            alertMessage.innerText = message;
+            setTimeout(() => {
+                floatingAlert.classList.remove("show");
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
