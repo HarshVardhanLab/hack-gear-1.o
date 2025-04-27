@@ -4,13 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QR Attendance System</title>
+
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Animate.css for animations -->
+
+    <!-- Animate.css -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <!-- Font Awesome for icons -->
+
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- jsQR library -->
+
+    <!-- jsQR -->
     <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
 
     <style>
@@ -204,7 +208,7 @@
             <span id="alertMessage"></span>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-        
+
         <div class="row mb-4">
             <div class="col-12 text-center">
                 <h1 class="display-4 fw-bold text-success mb-3 animate__animated animate__fadeInDown">
@@ -215,7 +219,7 @@
                 </p>
             </div>
         </div>
-        
+
         <div class="row mb-4">
             <div class="col-lg-6 mb-4 mb-lg-0">
                 <div class="card attendance-card animate__animated animate__fadeInLeft">
@@ -232,7 +236,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="col-lg-6">
                 <div class="card attendance-card animate__animated animate__fadeInRight">
                     <div class="card-header bg-success text-white">
@@ -249,8 +253,8 @@
                                 <input type="text" class="form-control" id="participantName" required>
                             </div>
                             <div class="mb-3">
-                                <label for="teamName" class="form-label">Team Name</label>
-                                <input type="text" class="form-control" id="teamName" required>
+                                <label for="team_name" class="form-label">Team Name</label>
+                                <input type="text" class="form-control" id="team_name" required>
                             </div>
                             <div class="mb-3">
                                 <label for="teamCode" class="form-label">Team Code</label>
@@ -265,6 +269,7 @@
             </div>
         </div>
 
+        <!-- Attendance Records Table -->
         <div class="row">
             <div class="col-12">
                 <div class="card attendance-card animate__animated animate__fadeInUp animate__delay-1s">
@@ -290,7 +295,7 @@
                                     </tr>
                                 </thead>
                                 <tbody id="attendanceBody">
-                                    <!-- Records will appear here -->
+                                    <!-- Filled by JS -->
                                 </tbody>
                             </table>
                         </div>
@@ -306,9 +311,10 @@
                 </div>
             </div>
         </div>
+
     </div>
 
-    <!-- Bootstrap 5 Bundle with Popper -->
+    <!-- Bootstrap 5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
@@ -322,6 +328,11 @@
         const alertMessage = document.getElementById("alertMessage");
         const recordCount = document.getElementById("recordCount");
 
+        const ticketId = document.getElementById("ticketId");
+        const participantName = document.getElementById("participantName");
+        const team_name = document.getElementById("team_name");
+        const teamCode = document.getElementById("teamCode");
+
         let attendanceRecords = JSON.parse(localStorage.getItem("attendanceRecords")) || [];
 
         updateAttendanceTable();
@@ -331,12 +342,12 @@
         }
 
         navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
-            .then(function(stream) {
+            .then(stream => {
                 video.srcObject = stream;
                 video.play();
                 requestAnimationFrame(scanQR);
             })
-            .catch(function(err) {
+            .catch(err => {
                 showResult("Error accessing camera: " + err.message, "error");
             });
 
@@ -356,95 +367,36 @@
                         const data = JSON.parse(code.data);
 
                         if (validateQRData(data)) {
-                            const existingRecord = attendanceRecords.find(
-                                record => record.ticket_id === data.ticket_id
-                            );
-
+                            const existingRecord = attendanceRecords.find(r => r.ticket_id === data.ticket_id);
                             if (!existingRecord) {
-                                if (!data.timestamp) {
-                                    data.timestamp = new Date().toISOString();
-                                }
-
-                                attendanceRecords.unshift(data);
+                                const record = {
+                                    timestamp: new Date().toISOString(),
+                                    participant: data.participant,
+                                    team_name: data.team_name,
+                                    team_code: data.team_code,
+                                    ticket_id: data.ticket_id,
+                                };
+                                attendanceRecords.unshift(record);
                                 saveRecords();
-
-                                showResult(`Attendance recorded for ${data.participant}`, "success");
-                                showFloatingAlert(`Success: ${data.participant} added`, "success");
+                                showResult(`Attendance recorded for ${record.participant}`, "success");
+                                showFloatingAlert(`Success: ${record.participant} added`, "success");
                             } else {
                                 showResult(`Ticket ${data.ticket_id} already scanned`, "warning");
                                 showFloatingAlert(`Warning: ${data.participant} already scanned`, "warning");
                             }
                         } else {
-                            showResult("Invalid QR code format", "error");
-                            showFloatingAlert("Error: Invalid QR code format", "danger");
+                            showResult("Invalid QR Data", "error");
                         }
                     } catch (e) {
-                        showResult("Invalid QR code data", "error");
-                        showFloatingAlert("Error: Invalid QR code", "danger");
+                        showResult("Error parsing QR", "error");
                     }
                 }
             }
             requestAnimationFrame(scanQR);
         }
 
-        manualEntryForm.addEventListener("submit", function(e) {
-            e.preventDefault();
-            const data = {
-                timestamp: new Date().toISOString(),
-                participant: participantName.value.trim(),
-                team: teamName.value.trim(),
-                team_code: teamCode.value.trim(),
-                ticket_id: ticketId.value.trim()
-            };
-
-            if (validateQRData(data)) {
-                attendanceRecords.unshift(data);
-                saveRecords();
-                showResult(`Manually added ${data.participant}`, "success");
-                showFloatingAlert(`Manually added ${data.participant}`, "success");
-                manualEntryForm.reset();
-            } else {
-                showResult("Please fill all fields correctly", "error");
-            }
-        });
-
-        downloadBtn.addEventListener("click", function() {
-            if (attendanceRecords.length === 0) {
-                showFloatingAlert("No records to download", "warning");
-                return;
-            }
-
-            let csv = "Timestamp,Participant,Team,Team Code,Ticket ID\n";
-            attendanceRecords.forEach(record => {
-                csv += `${record.timestamp},${record.participant},${record.team},${record.team_code},${record.ticket_id}\n`;
-            });
-
-            const blob = new Blob([csv], { type: "text/csv" });
-            const url = URL.createObjectURL(blob);
-
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = "attendance_records.csv";
-            a.click();
-
-            URL.revokeObjectURL(url);
-        });
-
-        clearBtn.addEventListener("click", function() {
-            if (confirm("Are you sure you want to clear all attendance records?")) {
-                attendanceRecords = [];
-                saveRecords();
-                showFloatingAlert("All records cleared", "danger");
-            }
-        });
-
         function validateQRData(data) {
-            return data.participant && data.team && data.team_code && data.ticket_id;
-        }
-
-        function saveRecords() {
-            localStorage.setItem("attendanceRecords", JSON.stringify(attendanceRecords));
-            updateAttendanceTable();
+            return data && data.participant && data.team_name && data.ticket_id && data.team_code;
         }
 
         function updateAttendanceTable() {
@@ -454,39 +406,76 @@
                 tr.innerHTML = `
                     <td>${new Date(record.timestamp).toLocaleString()}</td>
                     <td>${record.participant}</td>
-                    <td>${record.team}</td>
+                    <td>${record.team_name}</td>
                     <td>${record.ticket_id}</td>
-                    <td><span class="badge badge-success">Present</span></td>
+                    <td><span class="badge bg-success">Present</span></td>
                     <td><button class="btn btn-sm btn-danger" onclick="deleteRecord('${record.ticket_id}')"><i class="fas fa-trash"></i></button></td>
                 `;
                 attendanceBody.appendChild(tr);
             });
-
             recordCount.textContent = attendanceRecords.length;
         }
 
+        function saveRecords() {
+            localStorage.setItem("attendanceRecords", JSON.stringify(attendanceRecords));
+            updateAttendanceTable();
+        }
+
         function deleteRecord(ticketId) {
-            attendanceRecords = attendanceRecords.filter(record => record.ticket_id !== ticketId);
+            attendanceRecords = attendanceRecords.filter(r => r.ticket_id !== ticketId);
             saveRecords();
-            showFloatingAlert(`Record ${ticketId} deleted`, "danger");
         }
 
         function showResult(message, type) {
-            resultDiv.className = "";
-            resultDiv.classList.add(type, "show");
-            resultDiv.innerText = message;
-            setTimeout(() => {
-                resultDiv.classList.remove("show");
-            }, 3000);
+            resultDiv.className = `mt-3 alert ${type === "success" ? "success" : type === "warning" ? "warning" : "error"} show`;
+            resultDiv.textContent = message;
         }
 
         function showFloatingAlert(message, type) {
-            floatingAlert.className = `floating-alert alert alert-${type} show`;
-            alertMessage.innerText = message;
+            floatingAlert.className = `floating-alert alert alert-${type === "success" ? "success" : type === "warning" ? "warning" : "danger"} show`;
+            alertMessage.textContent = message;
             setTimeout(() => {
                 floatingAlert.classList.remove("show");
             }, 3000);
         }
+
+        manualEntryForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            const record = {
+                timestamp: new Date().toISOString(),
+                participant: participantName.value,
+                team_name: team_name.value,
+                team_code: teamCode.value,
+                ticket_id: ticketId.value,
+            };
+            attendanceRecords.unshift(record);
+            saveRecords();
+            manualEntryForm.reset();
+            showFloatingAlert(`Manual Entry: ${record.participant} added`, "success");
+        });
+
+        downloadBtn.addEventListener("click", function () {
+            let csv = "Timestamp,Participant,Team Name,Ticket ID\n";
+            attendanceRecords.forEach(record => {
+                csv += `"${record.timestamp}","${record.participant}","${record.team_name}","${record.ticket_id}"\n`;
+            });
+
+            const blob = new Blob([csv], { type: "text/csv" });
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "attendance_records.csv";
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+
+        clearBtn.addEventListener("click", function () {
+            if (confirm("Are you sure you want to clear all attendance records?")) {
+                attendanceRecords = [];
+                saveRecords();
+            }
+        });
     </script>
 </body>
 </html>
